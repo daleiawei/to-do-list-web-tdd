@@ -1,8 +1,26 @@
 from selenium import webdriver
+import unittest
 
-browser = webdriver.Firefox()
+class NewVisitorTest(unittest.TestCase):
 
-browser.get('http://localhost:8000')
+    def setUp(self):
+        self.browser = webdriver.Firefox()
+        self.browser.implicitly_wait(3)
 
-assert 'Django' in browser.title
+    def tearDown(self):
+        self.browser.quit()
+
+    def test_can_start_a_list_and_retrieve_it_later(self):
+        #Edith heard there is a cool on-line to-do list app
+        #She went to check the home page of that app
+        self.browser.get('http://localhost:8000')
+
+        #She noticed that both of the title and header include word "To-Do"
+        self.assertIn('To-Do', self.browser.title)
+        self.fail('Finish the test!')
+
+
+if __name__ == '__main__':
+    unittest.main(warnings='ignore') 
+
 
